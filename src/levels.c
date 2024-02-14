@@ -57,8 +57,7 @@ int levels(int n) {
                     update_level(filename, m, 1);
                     select_level(filename, m);
                     printf("Защищённый режим на уровне %d успешно установлен.\n", m);
-                }
-                else
+                } else
                     printf("Нет уровня с номером %d\n", m);
                 break;
             default:

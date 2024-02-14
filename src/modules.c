@@ -82,7 +82,8 @@ int modules(int n) {
                 int two = getint(&new_level) + getint(&new_cell);
                 if (r + two == 0) {
                     change_place(filename, m, new_level, new_cell);
-                    printf("Модуль с ID %d теперь можно найти по адресу: уровень %d, ячейка %d.\n", m, new_level, new_cell);
+                    printf("Модуль с ID %d теперь можно найти по адресу: уровень %d, ячейка %d.\n", m,
+                           new_level, new_cell);
                 } else
                     printf("Ты сам себя наказываешь этими ужасными выходками!\n");
                 break;

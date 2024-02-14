@@ -118,7 +118,6 @@ int insert(char *filename) {
     return d;
 }
 
-// добавить проверку на id
 void update(char *filename, int id, int new_flag) {
     FILE *file = fopen(filename, "r+b");
     struct events tmp;
