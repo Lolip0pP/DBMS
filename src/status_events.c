@@ -6,7 +6,7 @@
 #include <unistd.h>
 
 int events(int n) {
-    int r = 0, m = 0;
+    int m = 0;
     char *filename = "../materials/master_status_events.db";
     FILE *fp = fopen(filename, "rb");
 
@@ -18,8 +18,7 @@ int events(int n) {
                 break;
             case 1:;
                 printf("Вращайте барабан и выбирайте число! (ID события)\n");
-                r = get8int(&m);
-                if (r == 0) {
+                if (get8int(&m) == 0) {
                     if (select_event(filename, m) == 0) printf("Нет события с ID = %d\n", m);
                 } else
                     printf("Число вводи, кому сказал?!\n");
@@ -30,12 +29,10 @@ int events(int n) {
                 break;
             case 3:;
                 printf("В каком событии поменять статус?\n");
-                r = get8int(&m);
-                if (select_event(filename, m) == 1) {
+                if (get8int(&m) == 0 && select_event(filename, m) == 1) {
                     printf("На какой статус поменять?\n");
                     int new_flag = 0;
-                    r = get8int(&new_flag);
-                    if (r == 0)
+                    if (get8int(&new_flag) == 0)
                         update(filename, m, new_flag);
                     else
                         printf("Такой статус установить нельзя.\n");
@@ -44,8 +41,7 @@ int events(int n) {
                 break;
             case 4:;
                 printf("По какому ID удалять будем? (число!!)\n");
-                r = get8int(&m);
-                if (r == 0) {
+                if (get8int(&m) == 0) {
                     delete (filename, m);
                 } else
                     printf("Да ну тебя, ничего удалять не буду!\n");

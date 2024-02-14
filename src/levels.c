@@ -6,7 +6,7 @@
 #include <unistd.h>
 
 int levels(int n) {
-    int r = 0, m = 0;
+    int m = 0;
     char *filename = "../materials/master_levels.db";
     FILE *fp = fopen(filename, "rb");
 
@@ -18,8 +18,7 @@ int levels(int n) {
                 break;
             case 1:;
                 printf("Вращайте барабан и выбирайте число! (номер уровня)\n");
-                r = get_int(&m);
-                if (r == 0) {
+                if (get_int(&m) == 0) {
                     if (select_level(filename, m) == 0) printf("Нет уровня с номером %d\n", m);
                 } else
                     printf("Число вводи, кому сказал?!\n");
@@ -30,12 +29,10 @@ int levels(int n) {
                 break;
             case 3:;
                 printf("На каком уровне поменять флаг?\n");
-                r = get_int(&m);
-                if (select_level(filename, m) == 1) {
+                if (get_int(&m) == 0 && select_level(filename, m) == 1) {
                     printf("На какой флаг поменять?\n");
                     int new_flag = 0;
-                    r = get_int(&new_flag);
-                    if (r == 0)
+                    if (get_int(&new_flag) == 0)
                         update_level(filename, m, new_flag);
                     else
                         printf("Такой флаг установить нельзя.\n");
@@ -44,16 +41,14 @@ int levels(int n) {
                 break;
             case 4:;
                 printf("Какой уровень удалим? (число!!)\n");
-                r = get_int(&m);
-                if (r == 0)
+                if (get_int(&m) == 0)
                     delete_level(filename, m);
                 else
                     printf("Да ну тебя, ничего удалять не буду!\n");
                 break;
             case 5:;
                 printf("На каком уровне установить защищённый режим?\n");
-                r = get_int(&m);
-                if (select_level(filename, m) == 1) {
+                if (get_int(&m) == 0 && select_level(filename, m) == 1) {
                     update_level(filename, m, 1);
                     select_level(filename, m);
                     printf("Защищённый режим на уровне %d успешно установлен.\n", m);

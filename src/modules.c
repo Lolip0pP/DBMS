@@ -6,7 +6,7 @@
 #include <unistd.h>
 
 int modules(int n) {
-    int r = 0, m = 0;
+    int m = 0;
     char *filename = "../materials/master_modules.db";
     FILE *fp = fopen(filename, "rb");
 
@@ -18,8 +18,7 @@ int modules(int n) {
                 break;
             case 1:;
                 printf("Вращайте барабан и выбирайте число! (ID модуля)\n");
-                r = getint(&m);
-                if (r == 0) {
+                if (getint(&m) == 0) {
                     if (select_module(filename, m) == 0) printf("Нет модуля с ID = %d\n", m);
                 } else
                     printf("Число вводи, кому сказал?!\n");
@@ -30,12 +29,10 @@ int modules(int n) {
                 break;
             case 3:;
                 printf("В каком модуле поменять флаг?\n");
-                r = getint(&m);
-                if (select_module(filename, m) == 1) {
+                if (getint(&m) == 0 && select_module(filename, m) == 1) {
                     printf("На какой флаг поменять?\n");
                     int new_flag = 0;
-                    r = getint(&new_flag);
-                    if (r == 0)
+                    if (getint(&new_flag) == 0)
                         update_module(filename, m, new_flag);
                     else
                         printf("Такой флаг установить нельзя.\n");
@@ -44,8 +41,7 @@ int modules(int n) {
                 break;
             case 4:;
                 printf("По какому ID удалять будем? (число!!)\n");
-                r = getint(&m);
-                if (r == 0) {
+                if (getint(&m) == 0) {
                     delete_module(filename, m);
                 } else
                     printf("Да ну тебя, ничего удалять не буду!\n");
@@ -55,16 +51,14 @@ int modules(int n) {
                 break;
             case 6:;
                 printf("По какому ID удалять будем?\n");
-                r = getint(&m);
-                if (r == 0) {
+                if (getint(&m) == 0) {
                     delete_module(filename, m);
                 } else
                     printf("Да ну тебя, ничего удалять не буду!\n");
                 break;
             case 7:;
                 printf("В каком модуле установить protected mode?\n");
-                r = getint(&m);
-                if (select_module(filename, m) == 1) {
+                if (getint(&m) == 0 && select_module(filename, m) == 1) {
                     update_module(filename, m, 0);
                     update_module(filename, m, 1);
                     select_module(filename, m);
@@ -76,7 +70,7 @@ int modules(int n) {
                 break;
             case 8:;
                 printf("Над каким модулем поиздеваемся сегодня? (ID натуральным числом, пожалуйста)\n");
-                r = getint(&m);
+                int r = getint(&m);
                 printf("Куда эту красоту закинем? (номер уровня и номер ячейки)\n");
                 int new_level = 0, new_cell = 0;
                 int two = getint(&new_level) + getint(&new_cell);
@@ -210,7 +204,7 @@ void read_active_modules(char *filename) {
     printf("Сейчас выведутся все активные модули, если они есть...\n");
     while (fread(&buf, MODULE_SIZE, 1, fp) == 1) {
         if (buf.flag == 1) {
-            printf("%d %s %d %d %d\n", buf.id, buf.name, buf.n_level, buf.n_cell, buf.flag);
+            printf("%-5d %s %d %d %d\n", buf.id, buf.name, buf.n_level, buf.n_cell, buf.flag);
             n++;
         }
     }

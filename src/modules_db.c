@@ -81,7 +81,7 @@ int main() {
                 // выставляем флаг защищённости 1 уровня
                 filenam = "../materials/master_levels.db";
                 update_level(filenam, 1, 1);
-                printf("В 1 ячейке 1 уровня теперь только главный модуль ИИ.\n\n")
+                printf("В 1 ячейке 1 уровня теперь только главный модуль ИИ.\n\n");
             } else if (operation == -1)
                 printf("Уже наконец-то покидаете нас? Как жаль.");
             else
